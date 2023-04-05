@@ -1,8 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
-import Menus from './features/restaurant/Menus';
+import Menus from './features/restaurant/menus/Menus';
 
 function App() {
   return (

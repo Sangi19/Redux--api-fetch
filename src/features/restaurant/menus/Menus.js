@@ -1,26 +1,18 @@
 import React from 'react'
+import {useGetMenusQuery} from '../api/menusApi'
 
 export default function Menus() {
+
+// const [drinks, setDrinks] = useState(data)
+
+    const { data } = useGetMenusQuery(1);
+
+    console.log(data)
   return (
     <div>
         <input placeholder='Enter the name to filter'/>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <td>id</td>
-                        <td>name</td>
-                        <td>other</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>id</td>
-                        <td>name</td>
-                        <td>other</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div  style={{ height: 300, width: '100%' }}>
+            <DataGrid rows={rows} columns={columns} />
             <h1>pagination</h1>
         </div>
     </div>

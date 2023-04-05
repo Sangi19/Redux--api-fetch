@@ -1,12 +1,12 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 
-export const apiSlice=createApi({
+export const menusApi=createApi({
     reducerPath:'api',
     baseQuery:fetchBaseQuery({baseUrl:'https://api.punkapi.com/v2/'}),
     endpoints:(builder)=> ({
         getMenus:builder.query({
             query:(pNo) => ({
-                url: `/beers/page=<<page_number>>&per_page=${pNo}`
+                url: `/beers?page=${pNo}&per_page=10`
             }),
         }),
     }),
@@ -14,4 +14,4 @@ export const apiSlice=createApi({
 
 export const {
     useGetMenusQuery
-}=apiSlice
+}=menusApi
