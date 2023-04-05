@@ -9,6 +9,8 @@ import './index.css';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
+ import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
+ import { apiSlice } from './features/restaurant/api/apiSlice';
 root.render(
   <React.StrictMode>
     <Provider store={store}>
