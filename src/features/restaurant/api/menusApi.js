@@ -6,7 +6,7 @@ export const menusApi=createApi({
     endpoints:(builder)=> ({
         getMenus:builder.query({
             query:(pNo) => ({
-                url: `/beers?page=${pNo}&per_page=10`
+                url: `/beers`
             }),
         }),
     }),
