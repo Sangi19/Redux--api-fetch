@@ -80,12 +80,12 @@ TablePaginationActions.propTypes = {
 export default function Menus({ tabledata,currentPage } ) {
 
   
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   // let rows=tabledata.tabledata
   // console.log(rows.length)
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tabledata.length) : 0;
+  // const emptyRows =
+  //   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tabledata.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     console.log("hi")
@@ -121,7 +121,7 @@ export default function Menus({ tabledata,currentPage } ) {
           ))}
 
           {/* {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
+            <TableRow style={{ height: 3 * emptyRows }}>
               <TableCell colSpan={6} />
             </TableRow>
           )} */}
@@ -134,12 +134,12 @@ export default function Menus({ tabledata,currentPage } ) {
               count={100}
               rowsPerPage={rowsPerPage}
               page={page}
-              SelectProps={{
-                inputProps: {
-                  'aria-label': 'rows per page',
-                },
-                native: true,
-              }}
+              // SelectProps={{
+              //   inputProps: {
+              //     'aria-label': 'rows per page',
+              //   },
+              //   native: true,
+              // }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
