@@ -1,5 +1,4 @@
-import React,{useEffect, useState} from 'react'
-import {useGetMenusQuery} from '../api/menusApi'
+import React,{ useState} from 'react'
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -16,7 +15,6 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { TextField } from '@mui/material';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -79,83 +77,61 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function Menus() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+export default function Menus({ tabledata,currentPage } ) {
 
-    const { data,isLoading } = useGetMenusQuery(1);
-    let rows=data
-
+  
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  // let rows=tabledata.tabledata
+  // console.log(rows.length)
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tabledata.length) : 0;
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    console.log("hi")
+    setPage(newPage)
+    currentPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const [searched, setSearched] = useState("");
-useEffect(()=>{
-
-},[rows])
-  function requestSearch (e)  {
-    setSearched(e.target.value)
-    const filteredRows = rows.filter((row) => {
-      return row.name.toLowerCase().includes(e.target.value.toLowerCase());
-    });
-    rows=filteredRows;
-    console.log(rows)
-  };
-
-  //   const cancelSearch = () => {
-  //   setSearched("");
-  //   requestSearch(searched);
-  // };
-
 
   return (
-    <>
-    <TextField
-      value={searched}
-      onChange={ requestSearch}
-      // onCancelSearch={() => cancelSearch()}
-    />
-    {isLoading?<div>isLoading...</div>:
+    <div>
+    { !tabledata  ?
+    <div>isLoading... at menu</div>
+    : <div>
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <Table sx={{ minWidth: 400 }} aria-label="custom pagination table">
         <TableBody>
-          {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map((row) => (
+          { tabledata.map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
+              <TableCell component="th" scope="row" style={{ width: 160 }}>
                 {row.name}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.calories}
+              <TableCell style={{ width: 160 }} >
+                {row.tagline}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.fat}
+              <TableCell style={{ width: 160 }} >
+                {row.volume.value}:{row.volume.unit}
               </TableCell>
             </TableRow>
           ))}
 
-          {emptyRows > 0 && (
+          {/* {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />
             </TableRow>
-          )}
+          )} */}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[ 10, 25, { label: 'All', value: -1 }]}
               colSpan={3}
-              count={rows.length}
+              count={100}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
@@ -171,7 +147,9 @@ useEffect(()=>{
           </TableRow>
         </TableFooter>
       </Table>
-    </TableContainer>}
-    </>
+    </TableContainer>
+    </div>
+    }
+    </div>
   );
 }

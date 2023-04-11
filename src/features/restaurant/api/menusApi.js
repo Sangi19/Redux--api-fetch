@@ -5,12 +5,19 @@ export const menusApi=createApi({
     baseQuery:fetchBaseQuery({baseUrl:'https://api.punkapi.com/v2/'}),
     endpoints:(builder)=> ({
         getMenus:builder.query({
-            query:(pNo) => ({
-                url: `/beers`
+            query:(pageno=1) => ({
+                url: `/beers/?page=${pageno}&per_page=10`
+                // 
             }),
         }),
+        filterPost:builder.query({
+            query:(name)=> ({
+                url:`/beers/?beer_name=${name}`
+            })
+        })
     }),
 })
+
 
 export const {
     useGetMenusQuery
