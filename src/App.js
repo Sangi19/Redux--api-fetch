@@ -33,7 +33,6 @@ function App() {
 
   function requestSearch ()  {
     setSearched(temp)
-
   };
 
   function handleperpage(val){
@@ -41,19 +40,37 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Box>
+    <div className="App" >
+      <Box
+      sx={{
+        mx:40,
+        my:15,
+        minWidth: 400,
+        maxWidth:1400,
+        bgcolor:'#E7EBF0',
+        boxShadow: 1,
+        borderRadius: 4,
+        p: 2,
+      }}
+      >
         {isLoading && !tabledata.length ? 
         <div>isLoading...</div>
         :
         <div>
           <TextField
+          sx={{mb:2}}
             value={temp}
             onChange={ (e)=>setTemp(e.target.value)}
           />
           <Button
+           variant="contained"
+          sx={{
+            fontWeight: 'bold',
+            mx:2,
+            my:1
+          }}
           onClick={requestSearch}>
-            search
+            Search
           </Button>
           <Menus tabledata={tabledata} currentPage={currentPage} perpageNo={perpageNo} handleperpage={handleperpage} />
         </div>
