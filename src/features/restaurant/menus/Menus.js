@@ -1,4 +1,4 @@
-import React,{ useState} from 'react'
+import React,{useState} from 'react'
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -77,24 +77,18 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function Menus({ tabledata,currentPage } ) {
-
-  
+export default function Menus({ tabledata,currentPage,perpageNo,handleperpage} ) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  // let rows=tabledata.tabledata
-  // console.log(rows.length)
-  // const emptyRows =
-  //   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tabledata.length) : 0;
+  const [rowsPerPage, setRowsPerPage] = useState(perpageNo);
 
   const handleChangePage = (event, newPage) => {
-    console.log("hi")
-    setPage(newPage)
-    currentPage(newPage);
+    setPage(newPage+1)
+    currentPage(newPage+1);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
+    handleperpage(parseInt(event.target.value, 10))
     setPage(0);
   };
 
@@ -119,27 +113,15 @@ export default function Menus({ tabledata,currentPage } ) {
               </TableCell>
             </TableRow>
           ))}
-
-          {/* {emptyRows > 0 && (
-            <TableRow style={{ height: 3 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )} */}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[ 10, 25, { label: 'All', value: -1 }]}
               colSpan={3}
-              count={100}
+              count={99}
               rowsPerPage={rowsPerPage}
               page={page}
-              // SelectProps={{
-              //   inputProps: {
-              //     'aria-label': 'rows per page',
-              //   },
-              //   native: true,
-              // }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
